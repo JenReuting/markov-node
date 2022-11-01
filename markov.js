@@ -1,3 +1,4 @@
+"use strict";
 /** Textual markov chain generator. */
 const argv = process.argv;
 // const testText = argv[2];
@@ -28,6 +29,9 @@ class MarkovMachine {
    * */
 
   getChains() {
+    // function _add (item) {
+
+    // }
     const markovChainMap = {};
     for (let i = 0; i < this.words.length; i++) {
       // checks if last word
@@ -58,11 +62,11 @@ class MarkovMachine {
     // - start at the first word in the input text
     // - find a random word from the following-words of that
     // - repeat until reaching the terminal null
-    const markovArr = [];
+    const markovArr = []; // better var name (output words?)
     let currWord = this.words[0];
 
     while (currWord !== null) {
-      let followingWords = this.chains[currWord];
+      let followingWords = this.chains[currWord]; // let -> const
       let randInd = getRandomInt(0, followingWords.length);
       let nextWord = followingWords[randInd];
       markovArr.push(nextWord);
@@ -73,6 +77,7 @@ class MarkovMachine {
   }
 }
 
+// can make helper function to take in array and return random element
 /**
  * Generates random number from (min - (max - 1))
  * Input: (min, max) - Numbers
