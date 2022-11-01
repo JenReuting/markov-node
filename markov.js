@@ -27,16 +27,6 @@ class MarkovMachine {
    *
    * */
 
-  /*
-  Is this the last word of the array
-    In markovChainMap
-      .push
-    else
-      = [null]
-  else
-  */
-
-
   getChains() {
     const markovChainMap = {};
     for (let i = 0; i < this.words.length; i++) {
@@ -83,6 +73,11 @@ class MarkovMachine {
   }
 }
 
+/**
+ * Generates random number from (min - (max - 1))
+ * Input: (min, max) - Numbers
+ * Output: random number - Number
+ */
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
