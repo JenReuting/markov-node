@@ -25,39 +25,37 @@ class MarkovMachine {
    *   "the": ["hat."],
    *   "hat.": [null],
    *  }
-   *
    * */
 
   getChains() {
-    // function _add (item) {
+    /** Determines if the value already exists in the map object, if not, it creates
+     * it. Otherwise, it pushes it to the existing values array.
+      */
+    function _add (currWord, pushValue) {
+      markovChainMap[currWord]
+        ? markovChainMap[currWord].push(pushValue)
+        : markovChainMap[currWord] = [pushValue]
+    }
 
-    // }
     const markovChainMap = {};
     for (let i = 0; i < this.words.length; i++) {
       // checks if last word
-      if (i === this.words.length - 1) {
-        // checks if key exists in object
-        if (this.words[i] in markovChainMap) {
-          markovChainMap[this.words[i]].push(null);
-        } else {
-          markovChainMap[this.words[i]] = [null];
-        }
-      } else if (this.words[i] in markovChainMap) {
-        markovChainMap[this.words[i]].push(this.words[i + 1]);
+      let currWord = this.words[i];
+      let nextWord = this.words[i+1]
+
+      if (nextWord === undefined) {
+        _add(currWord, null);
       } else {
-        markovChainMap[this.words[i]] = [this.words[i + 1]];
+        _add(currWord, nextWord);
       }
     }
-
     return markovChainMap;
   }
-
 
   /** Return random text from chains, starting at the first word and continuing
    *  until it hits a null choice. */
 
   getText() {
-    // TODO: implement this!
 
     // - start at the first word in the input text
     // - find a random word from the following-words of that
@@ -67,13 +65,17 @@ class MarkovMachine {
 
     while (currWord !== null) {
       let followingWords = this.chains[currWord]; // let -> const
-      let randInd = getRandomInt(0, followingWords.length);
-      let nextWord = followingWords[randInd];
+      let nextWord = this.getRandomArrayItem(followingWords);
       markovArr.push(nextWord);
       currWord = nextWord;
     }
 
     return markovArr.join(' ');
+  }
+
+  getRandomArrayItem(arr) {
+    const randomIdx = Math.floor(Math.random() * arr.length);
+    return arr[randomIdx]
   }
 }
 
@@ -83,11 +85,7 @@ class MarkovMachine {
  * Input: (min, max) - Numbers
  * Output: random number - Number
  */
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min);
-}
+
 
 const testText = `anyone lived in a pretty how town
 with up so floating many bells down
@@ -97,31 +95,13 @@ he sang his didn’t he danced his did
 Women and men both little and small
 cared for anyone not at all
 they sowed their isn’t they reaped their same
-sun moon stars rain
-
-children guessed but only a few
-and down they forgot as up they grew
-autumn winter spring summer
-that noone loved him more by more
-
-when by now and tree by leaf
-she laughed his joy she cried his grief
-bird by snow and stir by still
-anyone’s any was all to her
-
-someones married their everyones
-laughed their cryings and did their dance
-sleep wake hope and then they
-said their nevers they slept their dream
-
-stars rain sun moon
-and only the snow can begin to explain
-how children are apt to forget to remember
-with up so floating many bells down`;
+sun moon stars rain`;
 
 const testMarkov = new MarkovMachine(testText);
 console.log(testMarkov.getChains());
 console.log(testMarkov.getText());
+
+module.exports = { MarkovMachine }
 
 
 
