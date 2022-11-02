@@ -76,3 +76,19 @@ describe("getChains function", function() {
   });
 })
 
+describe ("getText function", function() {
+
+  const testText = 'This is a simple test';
+  const markovChainText = 'is a simple test';
+  let markovMachine;
+
+  beforeEach(function() {
+    markovMachine = new MarkovMachine(testText);
+  })
+
+  test('create markov output', function() {
+    let markovTest = markovMachine.getText();
+
+    expect(markovTest).toEqual(markovChainText);
+  });
+});

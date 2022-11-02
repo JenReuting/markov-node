@@ -70,7 +70,7 @@ class MarkovMachine {
       currWord = nextWord;
     }
 
-    return markovArr.join(' ');
+    return markovArr.join(' ').trim();
   }
 
   getRandomArrayItem(arr) {
@@ -87,21 +87,23 @@ class MarkovMachine {
  */
 
 
-const testText = `anyone lived in a pretty how town
-with up so floating many bells down
-spring summer autumn winter
-he sang his didn’t he danced his did
+// const testText = `anyone lived in a pretty how town
+// with up so floating many bells down
+// spring summer autumn winter
+// he sang his didn’t he danced his did
 
-Women and men both little and small
-cared for anyone not at all
-they sowed their isn’t they reaped their same
-sun moon stars rain`;
+// Women and men both little and small
+// cared for anyone not at all
+// they sowed their isn’t they reaped their same
+// sun moon stars rain`;
 
-const testMarkov = new MarkovMachine(testText);
-console.log(testMarkov.getChains());
-console.log(testMarkov.getText());
+// const testText = 'This is a simple test';
 
-module.exports = { MarkovMachine }
+// const testMarkov = new MarkovMachine(testText);
+// console.log(testMarkov.getChains());
+// console.log(testMarkov.getText());
+
+module.exports = { MarkovMachine };
 
 
 
